@@ -288,13 +288,19 @@ if PIL == True:
         from PIL import Image
         from PIL import ImageTk
         from PIL import ImageOps
-        import _imaging
     except:
-        #try:
-        #    from PIL.Image import core as _imaging # for debian jessie
-        #except:
         PIL = False
-
+if PIL == True:
+    try:
+        import _imaging 
+        #this throws an exception in ubuntu if Pillow is installed instead of PIL
+	#see http://pillow.readthedocs.io/en/3.1.x/installation.html 
+    except:
+        try:
+            from PIL.Image import core as _imaging
+        except:
+            print ("Problems loading pill")
+            PIL = False
 
 from math import *
 from time import time
